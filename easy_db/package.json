@@ -1,0 +1,11 @@
+{
+  "name": "easy_db",
+  "description": "数据库访问",
+  "version": "0.0.1",
+  "main":"./index.js",
+  "dependencies": {
+    "async": "0.9.0",
+    "mongodb": "1.4.8",
+    "mysql": "2.4.2"
+  }
+}

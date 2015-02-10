@@ -1,0 +1,8 @@
+{
+  "name": "mcp_esf",
+  "description": "11选5",
+  "version": "0.0.1",
+  "main":"./index.js",
+  "dependencies": {
+  }
+}

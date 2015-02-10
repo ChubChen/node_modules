@@ -1,0 +1,8 @@
+{
+  "name": "mcp_dlt",
+  "description": "大乐透",
+  "version": "0.0.1",
+  "main":"./index.js",
+  "dependencies": {
+  }
+}

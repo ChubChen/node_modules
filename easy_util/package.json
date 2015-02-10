@@ -1,0 +1,8 @@
+{
+  "name": "easy_util",
+  "description": "工具类",
+  "version": "0.0.1",
+  "main":"./index.js",
+  "dependencies": {
+  }
+}

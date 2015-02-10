@@ -1,0 +1,8 @@
+{
+  "name": "mcp_fsd",
+  "description": "福彩3d",
+  "version": "0.0.1",
+  "main":"./index.js",
+  "dependencies": {
+  }
+}

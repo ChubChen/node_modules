@@ -1,0 +1,8 @@
+{
+  "name": "mcp_pls",
+  "description": "排列三",
+  "version": "0.0.1",
+  "main":"./index.js",
+  "dependencies": {
+  }
+}
