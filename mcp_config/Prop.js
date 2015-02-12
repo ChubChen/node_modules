@@ -42,7 +42,7 @@ var dbs = {
         type: esdb.prop.dbType.mongodb
     },
     'runMg': {
-        config: {'url': 'mongodb://192.168.222.236:27017/node_mcp'},
+        config: {'url': 'mongodb://192.168.0.22:27017/node_mcp'},
         type: esdb.prop.dbType.mongodb
     },
     'devMain': {
@@ -59,7 +59,7 @@ var dbs = {
     },
     'runMain': {
         config: {
-            'host': '192.168.222.235',
+            'host': '192.168.0.23',
             'user': 'root',
             'password': '123456',
             'port': 3306,
@@ -73,12 +73,12 @@ var dbs = {
         config: {'url': 'mongodb://127.0.0.1:27017/node_mcp_msg'},
         type: esdb.prop.dbType.mongodb
     },'runMsg': {
-        config: {'url': 'mongodb://192.168.222.236:27017/node_mcp_msg'},
+        config: {'url': 'mongodb://192.168.0.22:27017/node_mcp_msg'},
         type: esdb.prop.dbType.mongodb
     },
     'testMain': {
         config: {
-            'host': 'localhost',
+            'host': '192.168.0.20',
             'user': 'root',
             'password': '0okmnhy6',
             'port': 3306,
@@ -116,7 +116,7 @@ else if(target == 'test')
     exports.msg = dbs.devMsg;
 
     exports.platform.site = {
-        hostname: '182.254.150.246',
+        hostname: '192.168.0.19',
         port: 9088,
         path: '/mcp-filter/main/interface.htm',
         method: 'POST'
@@ -140,7 +140,7 @@ else if(target == 'run')
     exports.msg = dbs.runMsg;
 
     exports.platform.site = {
-        hostname: '192.168.222.237',
+        hostname: '192.168.0.21',
         port: 80,
         path: '/mcp-filter/main/interface.htm',
         method: 'POST'
@@ -148,16 +148,16 @@ else if(target == 'run')
 
 
     exports.platform.gateways = [
-        {host:'192.168.222.237', port:9090, method:'POST'},
-        {host:'192.168.222.237', port:9091, method:'POST'},
-        {host:'192.168.222.237', port:9092, method:'POST'},
-        {host:'192.168.222.237', port:9093, method:'POST'},
-        {host:'192.168.222.237', port:9094, method:'POST'},
-        {host:'192.168.222.235', port:9090, method:'POST'},
-        {host:'192.168.222.235', port:9091, method:'POST'},
-        {host:'192.168.222.235', port:9092, method:'POST'},
-        {host:'192.168.222.235', port:9093, method:'POST'},
-        {host:'192.168.222.235', port:9094, method:'POST'}
+        {host:'192.168.0.21', port:9090, method:'POST'},
+        {host:'192.168.0.21', port:9091, method:'POST'},
+        {host:'192.168.0.21', port:9092, method:'POST'},
+        {host:'192.168.0.21', port:9093, method:'POST'},
+        {host:'192.168.0.21', port:9094, method:'POST'},
+        {host:'192.168.0.23', port:9090, method:'POST'},
+        {host:'192.168.0.23', port:9091, method:'POST'},
+        {host:'192.168.0.23', port:9092, method:'POST'},
+        {host:'192.168.0.23', port:9093, method:'POST'},
+        {host:'192.168.0.23', port:9094, method:'POST'}
     ];
 
     exports.filterPort = 9088;

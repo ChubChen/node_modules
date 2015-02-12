@@ -2,7 +2,7 @@ var async = require('async');
 var CronJob = require("cron").CronJob;
 
 var mysql = require('mysql');
-var oracle = require('oracle');
+//var oracle = require('oracle');
 var MongoClient = require('mongodb').MongoClient;
 var prop = require('./Prop.js');
 var DbConnection = require('./DbConnection.js');
