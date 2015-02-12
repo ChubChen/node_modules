@@ -61,7 +61,7 @@ var dbs = {
         config: {
             'host': '192.168.0.23',
             'user': 'root',
-            'password': '123456',
+            'password': '0okmnhy6zqc',
             'port': 3306,
             'database': 'node_mcp'
         },
@@ -140,7 +140,7 @@ else if(target == 'run')
     exports.msg = dbs.runMsg;
 
     exports.platform.site = {
-        hostname: '192.168.0.21',
+        hostname: '218.30.107.21',
         port: 80,
         path: '/mcp-filter/main/interface.htm',
         method: 'POST'
