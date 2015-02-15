@@ -69,7 +69,6 @@ class Check:public node::ObjectWrap {
 
         int getHitCount(IntArray* lotArray, IntArray* prizeArray);
         IntArray* getCopyLengthIntArray(IntArray* numArray, int from, int len);
-        int getKuadu(IntArray* numArray, int len);
 
         GradeLevel* gl;
         DrawNum* pDrawNum;

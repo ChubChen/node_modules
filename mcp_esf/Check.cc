@@ -1937,9 +1937,9 @@ Handle<Value> Check::Count3206(const Arguments& args)
             len ++;
 
             IntArray* numArray = new IntArray(21, lotNumChar , len, ',');
-            int kuadu = self->getKuadu(self->pDrawNum->getPNum(), 3);
+            int span = MathUtil::getSpan(self->pDrawNum->getPNum(), 3);
             for(int i = 0; i < numArray->length(); i++){
-                if(numArray->get(i) == kuadu){
+                if(numArray->get(i) == span){
                     self->gl->appendBonusObj(array, 12, 1);
                 }
             }
@@ -2037,23 +2037,3 @@ IntArray* Check::getCopyLengthIntArray(IntArray* numArray, int form, int len){
     return newIntArray;
 }
 
-int Check::getKuadu(IntArray* numArray, int len){
-    if(len == 2){
-        return MathUtil::abs(numArray->get(1) - numArray->get(0));
-    }else{
-        int kuadu = 0 ;
-        int temp = MathUtil::abs(numArray->get(1) - numArray->get(0));
-        if(temp > kuadu){
-            kuadu = temp;
-        }
-        temp = MathUtil::abs(numArray->get(2) - numArray->get(1));
-        if(temp > kuadu){
-            kuadu = temp;
-        }
-        temp = MathUtil::abs(numArray->get(2) - numArray->get(0));
-        if(temp > kuadu){
-            kuadu = temp;
-        }
-        return kuadu;
-    }
-}

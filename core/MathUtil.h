@@ -17,6 +17,7 @@ class MathUtil {
         static int getHitCountByOrder(IntArray* lotArray, IntArray* prizeArray);
         static int getHitCount(IntArray* lotArray, IntArray* prizeArray);
         static void SelectSort(IntArray* intArray);
+        static int getSpan(IntArray* lotArray, int len);
     private:
 
 };
