@@ -1296,9 +1296,9 @@ Handle<Value> Check::Count2906(const Arguments& args)
             len ++;
 
             IntArray* numArray = new IntArray(21, lotNumChar , len, ',');
-            int kuadu = self->getKuadu(self->pDrawNum->getPNum(), 2);
+            int span = MathUtil::getSpan(self->pDrawNum->getPNum(), 2);
             for(int i = 0; i < numArray->length(); i++){
-                if(numArray->get(i) == kuadu){
+                if(numArray->get(i) == span){
                     self->gl->appendBonusObj(array, 9, 1);
                 }
             }
@@ -1519,9 +1519,9 @@ Handle<Value> Check::Count3106(const Arguments& args)
             len ++;
 
             IntArray* numArray = new IntArray(21, lotNumChar , len, ',');
-            int kuadu = self->getKuadu(self->pDrawNum->getPNum(), 3);
+            int span = MathUtil::getSpan(self->pDrawNum->getPNum(), 3);
             for(int i = 0; i < numArray->length(); i++){
-                if(numArray->get(i) == kuadu){
+                if(numArray->get(i) == span){
                     self->gl->appendBonusObj(array, 11, 1);
                 }
             }
@@ -1711,9 +1711,9 @@ Handle<Value> Check::Count3006(const Arguments& args)
             len ++;
 
             IntArray* numArray = new IntArray(21, lotNumChar , len, ',');
-            int kuadu = self->getKuadu(self->pDrawNum->getPNum(), 2);
+            int span = MathUtil::getSpan(self->pDrawNum->getPNum(), 2);
             for(int i = 0; i < numArray->length(); i++){
-                if(numArray->get(i) == kuadu){
+                if(numArray->get(i) == span){
                     self->gl->appendBonusObj(array, 10, 1);
                 }
             }
