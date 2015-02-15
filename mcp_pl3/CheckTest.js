@@ -1,7 +1,7 @@
 /**
  * Created by CH on 15-2-13.
  */
-var pls = require('mcp_pl3').pl3;
+var pls = require('./build/Release/pl3');
 
 
 var gameGrades = [104000,24600];
