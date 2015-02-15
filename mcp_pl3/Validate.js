@@ -96,19 +96,13 @@ Validate.prototype.validate0100 = function(order, ticket, cb)
             cb(ec.E2066);
             return;
         }
-        var intArray = mathUtil.getIntArrayFromStrArray(item.split('|'));
-        if(!mathUtil.isFromMinToMaxCanEqual(intArray))
-        {
-            cb(ec.E2066);
-            return;
-        }
     }
     cb(null, items.length);
 }
 
 
 /**
- * 排列三 直选单式
+ * 排列三 直选复式
  * @param order
  * @param ticket
  * @param cb
@@ -125,7 +119,7 @@ Validate.prototype.validate0101 = function(order, ticket, cb)
         return;
     }
     var funshiArray  = number.split('|');
-    var conut = 1;
+    var count = 1;
     for(var i =0 ; i < funshiArray.length ; i++){
         var intArray = funshiArray[i].split(',');
         if(!mathUtil.isFromMinToMax(intArray)){
@@ -134,7 +128,7 @@ Validate.prototype.validate0101 = function(order, ticket, cb)
         }
         count *= mathUtil.getC(intArray.length, 1);
     }
-    if (conut == 1){
+    if (count == 1){
         cb(ec.E2066);
         return;
     }
@@ -200,7 +194,7 @@ Validate.prototype.validate0104 = function(order, ticket, cb)
         cb(ec.E2066);
         return;
     }
-    var count = mathUtil.getC(intArray.length, 3);
+    var count = mathUtil.getA(intArray.length, 3);
     if(count <= 0){
         cb(ec.E2066);
     }
@@ -218,7 +212,7 @@ Validate.prototype.validate0105 = function(order, ticket, cb)
 {
     var self = this;
     var number = ticket.number;
-    var reg = /^[0-9](,[0-9])+\$[0-9](,[0-9]){2,10}$/;
+    var reg = /^[0-9](,[0-9]){0,9}\$[0-9](,[0-9]){1,10}$/;
     if(!reg.test(number))
     {
         cb(ec.E2066);
@@ -241,7 +235,7 @@ Validate.prototype.validate0105 = function(order, ticket, cb)
         cb(ec.E2066);
         return;
     }
-    var count = mathUtil.getC(danArray.length, 1) * mathUtil.getC(tuoArray.length, 2);
+    var count = mathUtil.getC(danArray.length, 1) * mathUtil.getC(tuoArray.length, 2) * 6;
     if(count < 1){
         cb(ec.E2066);
         return;
