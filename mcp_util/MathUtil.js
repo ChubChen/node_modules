@@ -1,3 +1,4 @@
+var arrayInfo = require("./ArrayInfo.js");
 var MathUtil = function(){};
 
 /**
@@ -225,6 +226,43 @@ MathUtil.prototype.selectSort = function(intArray){
             intArray[index] = temp;
         }
     }
+}
+
+/**
+ * 获得所有的可能的组合，每一个位至少有>=1个数，返回的是所有记录的序号
+ * @param intArray
+ * @return
+*/
+MathUtil.prototype.getDetailMultiplier= function(intArray)
+{
+    var n = 1;
+    for(var i = 0; i < intArray.length; i++)
+    {
+        n = n*intArray[i];
+    }
+    var data = new arrayInfo(n, intArray.length);
+
+    var splitCount = 1;
+    for(var i = 0; i < intArray.length; i++)
+    {
+        var numIArray = intArray[i];
+        splitCount = splitCount*numIArray;
+
+        var countPerNum = n/splitCount;
+        var index = 0;	//当前要填的索引
+        while(index < n)
+        {
+            for(var j = 0; j < numIArray; j++)
+            {
+                for(var k = 0; k < countPerNum; k++)
+                {
+                    data[index][i] = j;
+                    index++;
+                }
+            }
+        }
+    }
+    return data;
 }
 
 module.exports = new MathUtil();
