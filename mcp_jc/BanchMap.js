@@ -57,7 +57,6 @@ var BanchMap = function(){
         {id:77, code:'00000100'},
         {id:78, code:'00000110'},
         {id:828, code:'00000100'},
-        {id:828, code:'00000100'},
         {id:88, code:'00000010'},
         {id:89, code:'00000011'}]
     self.infoArray = {};
