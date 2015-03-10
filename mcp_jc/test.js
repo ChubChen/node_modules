@@ -24,8 +24,8 @@ var getDrawNumber = function(matchCode, cb)
 var start = new Date().getTime();
 for(var i = 0; i < 10; i++)
 {
-    //var number = '02|201406135003|1@3.550,0@1.99;02|201406135005|1@3.150,3@1.97;02|201406135006|0@3.150';
-    var number = '02|201406135006|1@3.550;02|201406135005|1@3.150';
+    var number = '02|201406135003|1@3.550,0@1.99;02|201406135005|1@3.150,3@1.97;02|201406135006|0@3.150';
+    //var number = '03|201406135006|12@1.30;03|201406135005|11@1.30;03|201406135003|11@3.0';
     var numberArray = number.split(';');
     var matches = [];
     for(var j = 0; j < numberArray.length; j++)
@@ -49,7 +49,7 @@ for(var i = 0; i < 10; i++)
     }, function(err){
         console.log(check.count({
             number:number,
-            bType:'21'
+            bType:'31'
         }));
     });
 }

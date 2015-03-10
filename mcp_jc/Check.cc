@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <node.h>
+#include <iostream>
+using namespace std;
 
 #include "Check.h"
 #include "VsString.h"
@@ -253,6 +255,12 @@ Handle<Value> Check::SetDrawNumber(const Arguments& args)
         long rang = vs_util_str_to_long(rangStr);   //让球数
         long hostEnd = vs_util_str_to_long(vs_string_list_get(endStrList, 0));   //主队进球数目
         long guestEnd = vs_util_str_to_long(vs_string_list_get(endStrList, 1));   //客队进球数目
+
+        struct VsString* biFenStr = vs_string_list_get(endStrList,0);
+        vs_string_append(biFenStr, vs_string_list_get(endStrList, 1));
+        cout<<biFenStr->pt<<endl;
+        cout<<rang<<endl;
+
         //统计胜平负
         if(hostEnd > guestEnd)
         {
@@ -279,6 +287,9 @@ Handle<Value> Check::SetDrawNumber(const Arguments& args)
         {
             vs_json_object_set_string(matchValue->objectValue, "01", "0");
         }
+        //竞猜比分结果
+        vs_json_object_set_string(matchValue->objectValue, "03", biFenStr->pt);
+
         vs_string_list_destroy(halfStrList);
         vs_string_list_destroy(endStrList);
         vs_string_list_destroy(numList);
