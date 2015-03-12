@@ -252,6 +252,8 @@ var Game = function(){
             [
                 {id:'01', name:'让球胜平负', price:200, betTypes:[]},
                 {id:'02', name:'胜平负', price:200, betTypes:[]},
+                {id:'03', name:'比分', price:200, betTypes:[]},
+                {id:'04', name:'总进球数', price:200, betTypes:[]},
                 {id:'06', name:'混合投注', price:200, betTypes:[]}
             ]
         }
