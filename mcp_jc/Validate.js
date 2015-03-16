@@ -37,7 +37,11 @@ Validate.prototype.validate = function(order, ticket, cb)
             }
             else
             {
-                var price = game.getInfo(ticket.gameCode, ticket.pType).price;
+                var gameConfig = game.getInfo(ticket.gameCode, ticket.pType);
+                if(!gameConfig){
+                    cb(ec.E2062);
+                }
+                var price = gameConfig.price;
                 //校验注数
                 if(count*ticket.multiple*price != ticket.amount)
                 {

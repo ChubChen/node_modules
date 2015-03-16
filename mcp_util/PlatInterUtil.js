@@ -16,6 +16,7 @@ PlatInterUtil.prototype.get = function(userId, userType, digestType, userKey, cm
 {
     body.uniqueId = digestUtil.createUUID();
     var bodyStr = JSON.stringify(body);
+    log.info(bodyStr);
     var head = {userId:userId, userType:userType, digest:"", digestType:digestType, cmd:cmd, ver:prop.platform.ver};
     head.timestamp = dateUtil.getCurTime();
     var encodedBody = bodyStr;

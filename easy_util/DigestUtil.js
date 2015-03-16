@@ -29,7 +29,7 @@ DigestUtil.prototype.check = function(headNode, key, bodyStr)
         dec += decipher.final('utf8');
         return dec;
     }
-    else if(headNode.digestType == "md5")
+    else if(headNode.digestType == "md5" || headNode.digestType == "MD5")
     {
         var text = bodyStr + headNode.timestamp + key;
         //log.info(text);
