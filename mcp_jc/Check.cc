@@ -253,13 +253,16 @@ Handle<Value> Check::SetDrawNumber(const Arguments& args)
         struct VsString* rangStr = vs_string_list_get(numList, 2);
 
         long rang = vs_util_str_to_long(rangStr);   //让球数
+        long halfHostEnd = vs_util_str_to_long(vs_string_list_get(halfStrList, 0));   //半场主队进球数目
+        long halfGuestEnd = vs_util_str_to_long(vs_string_list_get(halfStrList, 1));   //半场客队进球数目
+
         long hostEnd = vs_util_str_to_long(vs_string_list_get(endStrList, 0));   //主队进球数目
         long guestEnd = vs_util_str_to_long(vs_string_list_get(endStrList, 1));   //客队进球数目
 
+        long bifenCha = hostEnd - guestEnd;//比分差
+
         struct VsString* biFenStr = vs_string_list_get(endStrList,0);
         vs_string_append(biFenStr, vs_string_list_get(endStrList, 1));
-        cout<<biFenStr->pt<<endl;
-        cout<<rang<<endl;
 
         //统计胜平负
         if(hostEnd > guestEnd)
@@ -287,8 +290,47 @@ Handle<Value> Check::SetDrawNumber(const Arguments& args)
         {
             vs_json_object_set_string(matchValue->objectValue, "01", "0");
         }
-        //竞猜比分结果
-        vs_json_object_set_string(matchValue->objectValue, "03", biFenStr->pt);
+        //竞猜比分结果  //胜其他比分 -3 胜其他 -1 平其他 0 负其他
+        if(bifenCha >0 && guestEnd > 3){
+            vs_json_object_set_string(matchValue->objectValue, "03", "-3");
+        }else if(bifenCha == 0 && guestEnd > 3){
+           vs_json_object_set_string(matchValue->objectValue, "03", "-1");
+        }else if (bifenCha < 0 && hostEnd >3){
+            vs_json_object_set_string(matchValue->objectValue, "03", "0");
+        }else{
+           vs_json_object_set_string(matchValue->objectValue, "03", biFenStr->pt);
+        }
+
+        //总进球数
+        vs_json_object_set_string(matchValue->objectValue, "04", hostEnd + guestEnd);
+
+        //半全场
+        if(halfHostEnd > halfGuestEnd )
+        {
+            if(hostEnd > guestEnd){
+                vs_json_object_set_string(matchValue->objectValue, "05", "33");
+            }else if(hostEnd == guestEnd) {
+                vs_json_object_set_string(matchValue->objectValue, "05", "31");
+            }else{
+                vs_json_object_set_string(matchValue->objectValue, "05", "30");
+            }
+        }else if(halfHostEnd == halfGuestEnd){
+            if(hostEnd > guestEnd){
+                vs_json_object_set_string(matchValue->objectValue, "05", "13");
+            }else if(hostEnd == guestEnd) {
+                vs_json_object_set_string(matchValue->objectValue, "05", "11");
+            }else{
+                vs_json_object_set_string(matchValue->objectValue, "05", "10");
+            }
+        }else{
+            if(hostEnd > guestEnd){
+                vs_json_object_set_string(matchValue->objectValue, "05", "03");
+            }else if(hostEnd == guestEnd) {
+                vs_json_object_set_string(matchValue->objectValue, "05", "01");
+            }else{
+                vs_json_object_set_string(matchValue->objectValue, "05", "00");
+            }
+        }
 
         vs_string_list_destroy(halfStrList);
         vs_string_list_destroy(endStrList);
@@ -299,7 +341,6 @@ Handle<Value> Check::SetDrawNumber(const Arguments& args)
     /*struct VsString* jsonStr = vs_json_object_to_string(self->drawMap);
     vs_string_print(jsonStr);
     vs_string_destroy(jsonStr);*/
-
     vs_string_destroy(codeStr);
     vs_string_destroy(str);
     return scope.Close(Undefined());
