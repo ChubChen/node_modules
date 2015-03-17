@@ -96,7 +96,7 @@ if(target == 'dev')
     exports.msg = dbs.devMsg;
 
     exports.platform.site = {
-        hostname: '192.168.0.20',
+        hostname: '192.168.0.19',
         port: 9088,
         path: '/mcp-filter/main/interface.htm',
         method: 'POST'
