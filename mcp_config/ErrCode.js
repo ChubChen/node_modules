@@ -30,6 +30,7 @@ var ErrCode = function()
     self.E2069 = {repCode:"2069", description:"订单成功金额0"};
     self.E2070 = {repCode:"2070", description:"参数错误"};
     self.E2071 = {repCode:"2071", description:"单式不能超过5注"};
+    self.E2072 = {repCode:"2072", description:"订单查过限额"};
 
 
     self.E0999 = {repCode:"0999", description:"系统内部错误"};

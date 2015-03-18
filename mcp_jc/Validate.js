@@ -85,6 +85,10 @@ Validate.prototype.validate0000 = function(order, ticket, cb)
         cb(ec.E2066);
         return;
     }
+    if(count > 10000){
+        cb(ec.E2072);
+        return;
+    }
     cb(null, count);
 };
 
