@@ -24,7 +24,7 @@ var getDrawNumber = function(matchCode, cb)
 var start = new Date().getTime();
 for(var i = 0; i < 10000; i++)
 {
-    var number = '05|201406135006|3@1.9,2@2.0';
+    var number = '05|201406135006|10@1.9;02|201406135004|1@2.0';
     //var number = '03|201406135006|12@1.30;03|201406135005|11@1.30;03|201406135003|11@3.0';
     var numberArray = number.split(';');
     var matches = [];
@@ -50,7 +50,7 @@ for(var i = 0; i < 10000; i++)
         var te = 'count';
         console.log(check[te]({
             number:number,
-            bType:'11'
+            bType:'21'
         }));
     });
 }

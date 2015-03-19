@@ -300,9 +300,10 @@ Handle<Value> Check::SetDrawNumber(const Arguments& args)
         }else{
            vs_json_object_set_string(matchValue->objectValue, "03", biFenStr->pt);
         }
-
+        char charStr[32] = {0};
+        snprintf(charStr, sizeof(charStr), "%ld", hostEnd + guestEnd);
         //总进球数
-        vs_json_object_set_string(matchValue->objectValue, "04", hostEnd + guestEnd);
+        vs_json_object_set_string(matchValue->objectValue, "04", charStr);
 
         //半全场
         if(halfHostEnd > halfGuestEnd )
