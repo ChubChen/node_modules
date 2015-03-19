@@ -290,20 +290,25 @@ Handle<Value> Check::SetDrawNumber(const Arguments& args)
         {
             vs_json_object_set_string(matchValue->objectValue, "01", "0");
         }
-        //竞猜比分结果  //胜其他比分 -3 胜其他 -1 平其他 0 负其他
+        //竞猜比分结果  //胜其他比分 90 胜其他 99 平其他 09 负其他
         if(bifenCha >0 && guestEnd > 3){
-            vs_json_object_set_string(matchValue->objectValue, "03", "-3");
+            vs_json_object_set_string(matchValue->objectValue, "03", "90");
         }else if(bifenCha == 0 && guestEnd > 3){
-           vs_json_object_set_string(matchValue->objectValue, "03", "-1");
+           vs_json_object_set_string(matchValue->objectValue, "03", "99");
         }else if (bifenCha < 0 && hostEnd >3){
-            vs_json_object_set_string(matchValue->objectValue, "03", "0");
+            vs_json_object_set_string(matchValue->objectValue, "03", "09");
         }else{
            vs_json_object_set_string(matchValue->objectValue, "03", biFenStr->pt);
         }
         char charStr[32] = {0};
         snprintf(charStr, sizeof(charStr), "%ld", hostEnd + guestEnd);
         //总进球数
-        vs_json_object_set_string(matchValue->objectValue, "04", charStr);
+        if(hostEnd + guestEnd > 6){
+            vs_json_object_set_string(matchValue->objectValue, "04", "7");
+        }else{
+            vs_json_object_set_string(matchValue->objectValue, "04", charStr);
+
+        }
 
         //半全场
         if(halfHostEnd > halfGuestEnd )
