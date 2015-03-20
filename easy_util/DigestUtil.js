@@ -1,4 +1,5 @@
 var crypto = require('crypto');
+var log = require('./Log4js.js');
 
 var DigestUtil = function(){
 };
@@ -32,10 +33,10 @@ DigestUtil.prototype.check = function(headNode, key, bodyStr)
     else if(headNode.digestType == "md5" || headNode.digestType == "MD5")
     {
         var text = bodyStr + headNode.timestamp + key;
-        //log.info(text);
+        log.info(text);
         var md5 = self.md5(text);
-        //log.info("client md5:" + md5);
-        //log.info("system md5:" + headNode.digest);
+        log.info("client md5:" + md5);
+        log.info("system md5:" + headNode.digest);
         if(md5 == headNode.digest)
         {
             return bodyStr;
