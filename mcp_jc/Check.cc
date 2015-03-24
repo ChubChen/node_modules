@@ -431,7 +431,6 @@ Handle<Value> Check::Count(const Arguments& args)
                 Local<String> bonusBeforeTaxKey = String::NewSymbol("bonusBeforeTax");
                 Local<String> levelKey = String::NewSymbol("level");
                 Local<String> countKey = String::NewSymbol("count");
-
                 obj->Set(bonusKey, Number::New(bonus));
                 obj->Set(bonusBeforeTaxKey, Number::New(bonus));
                 obj->Set(levelKey, Number::New(level));
@@ -446,7 +445,9 @@ Handle<Value> Check::Count(const Arguments& args)
     vs_string_destroy(betType);
     vs_string_destroy(number);
     vs_json_object_destroy(numberObj);
-
+    if(totalBonus > 1000000){
+        totalBonus = totalBonus * 4 / 5;
+    }
     //生成总计信息
     array->Set(String::NewSymbol("bonus"), Number::New(totalBonus));
     array->Set(String::NewSymbol("bonusBeforeTax"), Number::New(totalBonus));
