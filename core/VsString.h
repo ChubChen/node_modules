@@ -188,7 +188,12 @@ void string_copy(const char *src, int srcLength, char *dest, int start);
  * 获得char *代表的字符串长度
  * @param src
  */
+
 long string_length(const char *src);
+/*
+*截取字符串
+*/
+void vs_string_truncate( VsString* str, long srcLength);
 
 /**
  * 初始化一个字符串列表

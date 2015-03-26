@@ -189,6 +189,7 @@ struct VsJsonObject* Check::getNumberObj(struct VsString* number, struct VsStrin
         struct VsJsonValue* obj = vs_json_value_init("{}");
         vs_json_object_set_string(obj->objectValue, "playType", playType->pt);
         vs_json_object_set_string(obj->objectValue, "matchCode", matchCode->pt);
+        vs_json_object_set_string(obj->objectValue, "choiceResult", choice->pt);
 
         struct VsStringList* choiceList = vs_string_split(choice, ',');
         struct VsJsonValue* choiceObject = vs_json_value_init("{}");
@@ -269,14 +270,9 @@ Handle<Value> Check::SetDrawNumber(const Arguments& args)
             vs_json_object_set_string(matchValue->objectValue, "02", "2");
         }
         //统计让球胜平负
-        /*if(hostEnd + rang > guestEnd)
-        {
-            vs_json_object_set_string(matchValue->objectValue, "01", "3");
-        }
-        else
-        {
-            vs_json_object_set_string(matchValue->objectValue, "01", "0");
-        }*/
+         vs_json_object_set_string(matchValue->objectValue, "01", str->pt);
+
+         vs_json_object_set_string(matchValue->objectValue, "04", str->pt);
 
         if(bifenCha > 0){
             if(bifenCha >= 1 && bifenCha <= 5){
@@ -369,10 +365,13 @@ Handle<Value> Check::Count(const Arguments& args)
                     struct VsJsonObject* curMatch = vs_json_array_get(matchArray, matchIndex)->objectValue;
                     struct VsString* matchCode = vs_json_object_get(curMatch, "matchCode")->strValue;
                     struct VsString* playType = vs_json_object_get(curMatch, "playType")->strValue;
+                    struct VsString* choiceResult = vs_json_object_get(curMatch, "choiceResult")->strValue;
+
                     struct VsJsonObject* choiceObject = vs_json_object_get(curMatch, "choice")->objectValue;
 
                     struct VsJsonObject* drawOptions = vs_json_object_get(self->drawMap, matchCode)->objectValue;
                     struct VsString* drawOption = vs_json_object_get(drawOptions, playType)->strValue;
+
                     if(vs_string_equal(drawOption, self->cancelFlag))   //场次取消，有多少个选项，则为多少倍
                     {
                         totalMultiplier *= choiceObject->length;
@@ -380,17 +379,116 @@ Handle<Value> Check::Count(const Arguments& args)
                     }
                     else
                     {
-                        struct VsJsonValue* select = vs_json_object_get(choiceObject, drawOption);
-                        if(select == NULL)  //用户选择错误
-                        {
-                            totalMultiplier = 0;
-                            curCount = 0;
-                            break;
+                        struct VsString*  playRang = vs_string_init("01");
+                        struct VsString*  playDaXiao = vs_string_init("04");
+                        if(vs_string_equal(playRang, playType)){
+                            struct VsStringList* choiceList = vs_string_split(choiceResult, ',');
+                            struct VsStringList* endStrList = vs_string_split(drawOption, ':');
+
+                            long hostEnd = vs_util_str_to_long(vs_string_list_get(endStrList, 0));   //全场主队分数
+                            long guestEnd = vs_util_str_to_long(vs_string_list_get(endStrList, 1));   //客场分数
+                            bool prizeFlag = false;
+                            for(int j = 0; j < choiceList->length; j++)
+                            {
+                               struct VsString* str = vs_string_list_get(choiceList, j);
+                               struct VsStringList* choiceOptionList = vs_string_split(str, '@');
+                               struct VsString* option = vs_string_list_get(choiceOptionList, 0);
+                               double rangqiu = 0 ;
+                               if(vs_string_index_of(option, '(') > 0){
+                                   struct VsStringList* realChoiceOptionList = vs_string_split(option, '(');
+                                   option = vs_string_list_get(realChoiceOptionList, 0);
+                                   struct VsString* otherInfo = vs_string_list_get(realChoiceOptionList, 1); //让球值 或者预示总分
+                                   vs_string_truncate(otherInfo, otherInfo->length - 1);
+                                   rangqiu = vs_util_str_to_double(otherInfo);
+                               }
+
+                                struct VsString* odds = vs_string_list_get(choiceOptionList, 1);
+                               //判断让球胜平负
+                               if(hostEnd + rangqiu > guestEnd ){//主胜
+                                    if(vs_util_str_to_long(option) == 1){
+                                        totalMultiplier *= vs_util_str_to_double(odds);
+                                        prizeFlag = true;
+                                        break;
+                                    }
+                               }else{
+                                    if(vs_util_str_to_long(option) == 2 ){
+                                        totalMultiplier *= vs_util_str_to_double(odds);
+                                         prizeFlag = true;
+                                         break;
+                                    }
+                               }
+                               vs_string_list_destroy(choiceOptionList);
+                            }
+                            if(!prizeFlag){
+                                 totalMultiplier = 0;
+                                 curCount = 0;
+                                 break;
+                            }
+                           vs_string_list_destroy(choiceList);
+                           vs_string_list_destroy(endStrList);
+                        }else if (vs_string_equal(playDaXiao, playType)){
+
+                            struct VsStringList* choiceList = vs_string_split(choiceResult, ',');
+                            struct VsStringList* endStrList = vs_string_split(drawOption, ':');
+
+                            long hostEnd = vs_util_str_to_long(vs_string_list_get(endStrList, 0));   //全场主队分数
+                            long guestEnd = vs_util_str_to_long(vs_string_list_get(endStrList, 1));   //客场分数
+                            bool prizeFlag = false;
+
+                            for(int j = 0; j < choiceList->length; j++)
+                            {
+                               struct VsString* str = vs_string_list_get(choiceList, j);
+                               struct VsStringList* choiceOptionList = vs_string_split(str, '@');
+                               struct VsString* option = vs_string_list_get(choiceOptionList, 0);
+                               double totalFen = 0;
+                               if(vs_string_index_of(option, '(') > 0){
+                                   struct VsStringList* realChoiceOptionList = vs_string_split(option, '(');
+                                   option = vs_string_list_get(realChoiceOptionList, 0);
+                                   struct VsString* otherInfo = vs_string_list_get(realChoiceOptionList, 1); //让球值 或者预示总分
+                                   vs_string_truncate(otherInfo, otherInfo->length - 1);
+                                   totalFen = vs_util_str_to_double(otherInfo);
+
+                               }
+
+                               struct VsString* odds = vs_string_list_get(choiceOptionList, 1);
+                               //判断让球胜平负
+                               if(hostEnd + guestEnd > totalFen ){//大
+                                    if(vs_util_str_to_long(option) == 1 ){
+                                        totalMultiplier *=vs_util_str_to_double(odds);
+                                        prizeFlag = true;
+                                        break;
+                                    }
+                               }else{
+                                    if(vs_util_str_to_long(option) == 2 ){
+                                        totalMultiplier *=vs_util_str_to_double(odds);
+                                        prizeFlag = true;
+                                        break;
+                                    }
+                               }
+                               vs_string_list_destroy(choiceOptionList);
+                            }
+                            if(!prizeFlag){
+                                totalMultiplier = 0;
+                                curCount = 0;
+                                break;
+                            }
+                           vs_string_list_destroy(choiceList);
+                           vs_string_list_destroy(endStrList);
+                        }else{
+                            struct VsJsonValue* select = vs_json_object_get(choiceObject, drawOption);
+                            if(select == NULL)  //用户选择错误
+                            {
+                                totalMultiplier = 0;
+                                curCount = 0;
+                                break;
+                            }
+                            else    //选择正确
+                            {
+                                totalMultiplier *= select->doubleValue;
+                            }
                         }
-                        else    //选择正确
-                        {
-                            totalMultiplier *= select->doubleValue;
-                        }
+                        vs_string_destroy(playRang);
+                        vs_string_destroy(playDaXiao);
                     }
                 }
                 count += curCount;

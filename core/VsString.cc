@@ -218,6 +218,20 @@ void vs_string_clear(VsString* str)
 }
 
 /**
+*截取一个字符串
+* @param str VsString * 结构体指针
+*从多少长开始截取
+*/
+
+void vs_string_truncate(VsString* str, long srcLength){
+    if(str->length > srcLength){
+        str->length = srcLength;
+        *(str->pt +srcLength) = '\0';
+    }
+}
+
+
+/**
  * 判断两个字符串是否相等
  * @param str VsString * 结构体指针
  * @param dest VsString * 结构体指针

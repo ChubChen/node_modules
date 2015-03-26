@@ -23,7 +23,7 @@ var getDrawNumber = function(matchCode, cb)
 var start = new Date().getTime();
 for(var i = 0; i < 1; i++)
 {
-    var number = '02|201503264301|1@2.50,2@2.50;02|201503264302|2@2.00;03|201503264303|11@4.00';
+    var number = '01|201503264301|2(1)@2.50;04|201503264303|2(230.5)@2.00;02|201503264305|1(120.5)@4.00';
     var numberArray = number.split(';');
     var matches = [];
     for(var j = 0; j < numberArray.length; j++)
@@ -48,7 +48,7 @@ for(var i = 0; i < 1; i++)
         var te = 'count';
         console.log(check[te]({
             number:number,
-            bType:'23'
+            bType:'31'
         }));
     });
 }
