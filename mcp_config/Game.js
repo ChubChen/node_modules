@@ -257,6 +257,15 @@ var Game = function(){
                 {id:'05', name:'半全场', price:200, betTypes:[]},
                 {id:'06', name:'混合投注', price:200, betTypes:[]}
             ]
+        },
+        {id:'T52', type:3, name:'竞彩篮球', playTypes:
+            [
+                {id:'01', name:'让分胜负', price:200, betTypes:[]},
+                {id:'02', name:'胜负', price:200, betTypes:[]},
+                {id:'03', name:'胜分差', price:200, betTypes:[]},
+                {id:'04', name:'大小分差', price:200, betTypes:[]},
+                {id:'05', name:'混合投注', price:200, betTypes:[]}
+            ]
         }
     ];
     self.infoArray = {};

@@ -242,111 +242,86 @@ Handle<Value> Check::SetDrawNumber(const Arguments& args)
     {
         vs_json_object_set_string(matchValue->objectValue, "02", "*");
         vs_json_object_set_string(matchValue->objectValue, "01", "*");
+        vs_json_object_set_string(matchValue->objectValue, "03", "*");
+        vs_json_object_set_string(matchValue->objectValue, "04", "*");
+        vs_json_object_set_string(matchValue->objectValue, "06", "*");
     }
     else
     {
-        struct VsStringList* numList = vs_string_split(str, ',');
-        struct VsString* halfStr = vs_string_list_get(numList, 0);
-        struct VsStringList* halfStrList = vs_string_split(halfStr, ':');
-        struct VsString* endStr = vs_string_list_get(numList, 1);
-        struct VsStringList* endStrList = vs_string_split(endStr, ':');
-        struct VsString* rangStr = vs_string_list_get(numList, 2);
+        //105:99  主队得分
+        struct VsStringList* endStrList = vs_string_split(str, ':');
 
-        long rang = vs_util_str_to_long(rangStr);   //让球数
-        long halfHostEnd = vs_util_str_to_long(vs_string_list_get(halfStrList, 0));   //半场主队进球数目
-        long halfGuestEnd = vs_util_str_to_long(vs_string_list_get(halfStrList, 1));   //半场客队进球数目
 
-        long hostEnd = vs_util_str_to_long(vs_string_list_get(endStrList, 0));   //主队进球数目
-        long guestEnd = vs_util_str_to_long(vs_string_list_get(endStrList, 1));   //客队进球数目
+        //long rang = vs_util_str_to_long(rangStr);   //让球数
+
+        long hostEnd = vs_util_str_to_long(vs_string_list_get(endStrList, 0));   //全场主队分数
+        long guestEnd = vs_util_str_to_long(vs_string_list_get(endStrList, 1));   //客场分数
 
         long bifenCha = hostEnd - guestEnd;//比分差
 
-        struct VsString* biFenStr = vs_string_list_get(endStrList,0);
-        vs_string_append(biFenStr, vs_string_list_get(endStrList, 1));
-
         //统计胜平负
         if(hostEnd > guestEnd)
-        {
-            vs_json_object_set_string(matchValue->objectValue, "02", "3");
-        }
-        else if(hostEnd == guestEnd)
         {
             vs_json_object_set_string(matchValue->objectValue, "02", "1");
         }
         else
         {
-            vs_json_object_set_string(matchValue->objectValue, "02", "0");
+            vs_json_object_set_string(matchValue->objectValue, "02", "2");
         }
         //统计让球胜平负
-        if(hostEnd + rang > guestEnd)
+        /*if(hostEnd + rang > guestEnd)
         {
             vs_json_object_set_string(matchValue->objectValue, "01", "3");
-        }
-        else if(hostEnd + rang == guestEnd)
-        {
-            vs_json_object_set_string(matchValue->objectValue, "01", "1");
         }
         else
         {
             vs_json_object_set_string(matchValue->objectValue, "01", "0");
-        }
-        //竞猜比分结果  //胜其他比分 90 胜其他 99 平其他 09 负其他
-        if(bifenCha >0 && guestEnd > 3){
-            vs_json_object_set_string(matchValue->objectValue, "03", "90");
-        }else if(bifenCha == 0 && guestEnd > 3){
-           vs_json_object_set_string(matchValue->objectValue, "03", "99");
-        }else if (bifenCha < 0 && hostEnd >3){
-            vs_json_object_set_string(matchValue->objectValue, "03", "09");
-        }else{
-           vs_json_object_set_string(matchValue->objectValue, "03", biFenStr->pt);
-        }
-        char charStr[32] = {0};
-        snprintf(charStr, sizeof(charStr), "%ld", hostEnd + guestEnd);
-        //总进球数
-        if(hostEnd + guestEnd > 6){
-            vs_json_object_set_string(matchValue->objectValue, "04", "7");
-        }else{
-            vs_json_object_set_string(matchValue->objectValue, "04", charStr);
+        }*/
 
-        }
-
-        //半全场
-        if(halfHostEnd > halfGuestEnd )
-        {
-            if(hostEnd > guestEnd){
-                vs_json_object_set_string(matchValue->objectValue, "05", "33");
-            }else if(hostEnd == guestEnd) {
-                vs_json_object_set_string(matchValue->objectValue, "05", "31");
-            }else{
-                vs_json_object_set_string(matchValue->objectValue, "05", "30");
+        if(bifenCha > 0){
+            if(bifenCha >= 1 && bifenCha <= 5){
+                vs_json_object_set_string(matchValue->objectValue, "03", "01");
             }
-        }else if(halfHostEnd == halfGuestEnd){
-            if(hostEnd > guestEnd){
-                vs_json_object_set_string(matchValue->objectValue, "05", "13");
-            }else if(hostEnd == guestEnd) {
-                vs_json_object_set_string(matchValue->objectValue, "05", "11");
-            }else{
-                vs_json_object_set_string(matchValue->objectValue, "05", "10");
+            else if(bifenCha >= 6 && bifenCha <= 10){
+                vs_json_object_set_string(matchValue->objectValue, "03", "02");
+            }
+            else if(bifenCha >= 11 && bifenCha <= 15){
+                vs_json_object_set_string(matchValue->objectValue, "03", "03");
+            }
+            else if(bifenCha >= 16 && bifenCha <= 20){
+                vs_json_object_set_string(matchValue->objectValue, "03", "04");
+            }
+            else if(bifenCha >= 21 && bifenCha <= 25){
+                vs_json_object_set_string(matchValue->objectValue, "03", "05");
+            }
+            else{
+                vs_json_object_set_string(matchValue->objectValue, "03", "06");
             }
         }else{
-            if(hostEnd > guestEnd){
-                vs_json_object_set_string(matchValue->objectValue, "05", "03");
-            }else if(hostEnd == guestEnd) {
-                vs_json_object_set_string(matchValue->objectValue, "05", "01");
-            }else{
-                vs_json_object_set_string(matchValue->objectValue, "05", "00");
+            bifenCha = 0 - bifenCha;
+            if(bifenCha >= 1 && bifenCha <= 5){
+                vs_json_object_set_string(matchValue->objectValue, "03", "11");
+            }
+            else if(bifenCha >= 6 && bifenCha <= 10){
+                vs_json_object_set_string(matchValue->objectValue, "03", "12");
+            }
+            else if(bifenCha >= 11 && bifenCha <= 15){
+                vs_json_object_set_string(matchValue->objectValue, "03", "13");
+            }
+            else if(bifenCha >= 16 && bifenCha <= 20){
+                vs_json_object_set_string(matchValue->objectValue, "03", "14");
+            }
+            else if(bifenCha >= 21 && bifenCha <= 25){
+                vs_json_object_set_string(matchValue->objectValue, "03", "15");
+            }
+            else{
+                vs_json_object_set_string(matchValue->objectValue, "03", "16");
             }
         }
-
-        vs_string_list_destroy(halfStrList);
         vs_string_list_destroy(endStrList);
-        vs_string_list_destroy(numList);
     }
     vs_json_object_set(self->drawMap, codeStr, matchValue);
 
-    /*struct VsString* jsonStr = vs_json_object_to_string(self->drawMap);
-    vs_string_print(jsonStr);
-    vs_string_destroy(jsonStr);*/
     vs_string_destroy(codeStr);
     vs_string_destroy(str);
     return scope.Close(Undefined());

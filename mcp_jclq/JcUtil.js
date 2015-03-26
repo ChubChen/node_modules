@@ -152,6 +152,6 @@ JcUtil.prototype.mX1=function(m,  n, setArray, termCount){
     return count;
 };
 
-//var betInfo="02|201312172001|1@1.0;02|201312172006|1@1.4,2,3;02|201312172006|1@1.5";
+//var betInfo="01|201503253301|1@1.0,2@3.0;01|201503253302|1@1.4,2,3;01|201503253303|1@1.5";
 //console.log(new JcUtil().getJcCount(betInfo, 2, 1));
 module.exports = new JcUtil();

@@ -242,6 +242,10 @@ Handle<Value> Check::SetDrawNumber(const Arguments& args)
     {
         vs_json_object_set_string(matchValue->objectValue, "02", "*");
         vs_json_object_set_string(matchValue->objectValue, "01", "*");
+        vs_json_object_set_string(matchValue->objectValue, "03", "*");
+        vs_json_object_set_string(matchValue->objectValue, "04", "*");
+        vs_json_object_set_string(matchValue->objectValue, "05", "*");
+        vs_json_object_set_string(matchValue->objectValue, "06", "*");
     }
     else
     {
