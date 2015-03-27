@@ -69,7 +69,7 @@ Validate.prototype.validate = function(order, ticket, cb)
  */
 Validate.prototype.validate0000 = function(order, ticket, cb)
 {
-    var split = "\\d{2}(,\\d{2}){0,}\\|\\d{12}\\|\\d{1,}(@\\d{1,}\\.\\d{1,}){0,1}(,\\d{1,}(@\\d{1,}\\.d{1,}){0,1}){0,}";
+    var split = "\\d{2}(,\\d{2}){0,}\\|\\d{12}\\|\\d{1,}(@\\d{1,}\\.\\d{1,}){0,1}(,\\d{1,}(@\\d{1,}\\.d{1,}){0,1}){0,7}";
     var match = "(\\${0,1}" + split + "(&" + split +"){0,}){1}";
     var reg = new RegExp("^" + match + "(;" + match + "){0,}$");
     if(!reg.test(ticket.number)){
