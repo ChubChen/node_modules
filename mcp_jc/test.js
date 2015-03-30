@@ -7,37 +7,19 @@ var drawNumber = {};
 
 var getDrawNumber = function(matchCode, cb)
 {
-    if(matchCode == "201503264001")
+    if(matchCode == "201503275006")
     {
-        cb(null, "1:0,2:0,-1");
+        cb(null, "3:0,3:0,-2");
     }
-    else if(matchCode == "201503264002")
+    else if(matchCode == "201503275008")
     {
-        cb(null, "1:0,2:0,+1");
-    } else if(matchCode == "201503227028")
+        cb(null, "2:0,4:0,-2");
+    } else if(matchCode == "201503275009")
     {
-        cb(null, "1:0,2:0,-1");
-    }else if(matchCode == "201503227030")
+        cb(null, "1:0,0:6,-4");
+    }else if(matchCode == "201503275010")
     {
-        cb(null, "0:0,1:0,-1");
-    }else if(matchCode == "201503227032")
-    {
-        cb(null, "2:2,2:3,+1");
-    }else if(matchCode == "201503227034")
-    {
-        cb(null, "0:2,1:3,+1");
-    }else if(matchCode == "201503227038")
-    {
-        cb(null, "0:1,0:2,-2");
-    }else if(matchCode == "201503227039")
-    {
-        cb(null, "1:1,3:1,-1");
-    }else if(matchCode == "201503227040")
-    {
-        cb(null, "3:0,4:1,-1");
-    }else if(matchCode == "201503227043")
-    {
-        cb(null, "0:2,2:3,+1");
+        cb(null, "2:0,3:0,-1");
     }
     else
     {
@@ -48,8 +30,7 @@ var getDrawNumber = function(matchCode, cb)
 var start = new Date().getTime();
 for(var i = 0; i < 1; i++)
 {
-    //var number = '01|201503227028|3@3.250,1@3.400;01|201503227030|3@2.100,1@3.600;01|201503227032|1@3.250,0@2.330;01|201503227034|1@3.400,0@3.900;01|201503227038|1@4.000,0@2.300;01|201503227039|3@2.670,1@3.200;01|201503227040|3@1.980,1@3.550;01|201503227043|1@3.250,0@2.470';
-    var number = '01|201503264001|3@1.850;01|201503264002|0@2.140';
+    var number = '03|201503275006|30@5.600,40@8.000,50@15.00;03|201503275008|30@5.000,31@11.50,40@6.600;03|201503275009|50@5.700,09@2.650;03|201503275010|20@4.500,30@5.600,31@11.00';
     var numberArray = number.split(';');
     var matches = [];
     for(var j = 0; j < numberArray.length; j++)
@@ -74,7 +55,7 @@ for(var i = 0; i < 1; i++)
         var te = 'count';
         console.log(check[te]({
             number:number,
-            bType:'21'
+            bType:'411'
         }));
     });
 }

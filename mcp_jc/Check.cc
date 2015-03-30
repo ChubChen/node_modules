@@ -295,11 +295,11 @@ Handle<Value> Check::SetDrawNumber(const Arguments& args)
             vs_json_object_set_string(matchValue->objectValue, "01", "0");
         }
         //竞猜比分结果  //胜其他比分 90 胜其他 99 平其他 09 负其他
-        if(bifenCha >0 && guestEnd > 3){
+        if(hostEnd > 5 || (bifenCha >3 && guestEnd > 3)){
             vs_json_object_set_string(matchValue->objectValue, "03", "90");
         }else if(bifenCha == 0 && guestEnd > 3){
            vs_json_object_set_string(matchValue->objectValue, "03", "99");
-        }else if (bifenCha < 0 && hostEnd >3){
+        }else if (guestEnd > 5 || (bifenCha < 0 && hostEnd >3)){
             vs_json_object_set_string(matchValue->objectValue, "03", "09");
         }else{
            vs_json_object_set_string(matchValue->objectValue, "03", biFenStr->pt);
