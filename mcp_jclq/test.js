@@ -7,11 +7,11 @@ var drawNumber = {};
 
 var getDrawNumber = function(matchCode, cb)
 {
-    if(matchCode == "201503264301")
+    if(matchCode == "201503312301")
     {
-        cb(null, "105:120");
-    }else if(matchCode == "201503264302" ){
-        cb(null, "100:210");
+        cb(null, "53:50");
+    }else if(matchCode == "201503312303" ){
+        cb(null, "73:80");
     }else if(matchCode == "201503264303" ){
         cb(null, "100:105");
     }else
@@ -23,7 +23,7 @@ var getDrawNumber = function(matchCode, cb)
 var start = new Date().getTime();
 for(var i = 0; i < 1; i++)
 {
-    var number = '01|201503264301|2(1)@2.50;04|201503264303|2(230.5)@2.00;02|201503264305|1(120.5)@4.00';
+    var number = '01|201503312301|1(-2.5)@1.790;01|201503312303|2(+6.5)@1.610';
     var numberArray = number.split(';');
     var matches = [];
     for(var j = 0; j < numberArray.length; j++)
@@ -48,7 +48,7 @@ for(var i = 0; i < 1; i++)
         var te = 'count';
         console.log(check[te]({
             number:number,
-            bType:'31'
+            bType:'21'
         }));
     });
 }
