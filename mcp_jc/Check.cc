@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <node.h>
+#include <math.h>
 #include <iostream>
 using namespace std;
 
@@ -367,7 +368,7 @@ Handle<Value> Check::Count(const Arguments& args)
     Handle<Array> array = Array::New();
     Handle<Array> detailArray = Array::New();
 
-    long totalBonus = 0;    //ticket all bonus
+    double totalBonus = 0;    //ticket all bonus
     struct VsString* number = self->getNumber(pObj);
     struct VsString* betType = self->getBetType(pObj);
     struct VsJsonObject* numberObj = self->getNumberObj(number, betType);
@@ -383,7 +384,7 @@ Handle<Value> Check::Count(const Arguments& args)
             long n = i + 1;
             long level = n*10 + 1;  //奖级,21,31,41...
             long count = 0; //注数
-            long bonus = 0; //这一级别的中奖金额
+            double bonus = 0; //这一级别的中奖金额
             struct VsJsonArray* detail = vs_json_util_get_detail_mn(m, n);
             //traverse the detail
             for(int j = 0; j < detail->length; j++)
@@ -423,9 +424,9 @@ Handle<Value> Check::Count(const Arguments& args)
                     }
                 }
                 count += curCount;
-                bonus += (long)totalMultiplier;
-                //printf("the multiple is:%lf.\n", totalMultiplier);
+                bonus += totalMultiplier;
             }
+
             if(bonus > 0)   //中奖，生成奖级信息
             {
                 totalBonus += bonus;
@@ -449,12 +450,14 @@ Handle<Value> Check::Count(const Arguments& args)
     vs_string_destroy(betType);
     vs_string_destroy(number);
     vs_json_object_destroy(numberObj);
-    if(totalBonus > 1000000){
-        totalBonus = totalBonus * 4 / 5;
+
+    long totalBonusLong = floor(totalBonus);
+    if(totalBonusLong > 1000000){
+        totalBonusLong = totalBonusLong * 4 / 5;
     }
     //生成总计信息
-    array->Set(String::NewSymbol("bonus"), Number::New(totalBonus));
-    array->Set(String::NewSymbol("bonusBeforeTax"), Number::New(totalBonus));
+    array->Set(String::NewSymbol("bonus"), Number::New(totalBonusLong));
+    array->Set(String::NewSymbol("bonusBeforeTax"), Number::New(totalBonusLong));
     array->Set(String::NewSymbol("bonusDetail"), detailArray);
 
     return scope.Close(array);
