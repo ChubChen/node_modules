@@ -40,6 +40,7 @@ Validate.prototype.validate = function(order, ticket, cb)
                 var gameConfig = game.getInfo(ticket.gameCode, ticket.pType);
                 if(gameConfig == undefined || gameConfig == null){
                     cb(ec.E2062);
+                    return;
                 }
                 var price = gameConfig.price;
                 //校验注数
