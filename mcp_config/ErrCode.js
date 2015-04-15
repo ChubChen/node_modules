@@ -8,6 +8,7 @@ var ErrCode = function()
     self.E0004 = {repCode:"0004", description:"消息已经过期"};
     self.E0005 = {repCode:"0005", description:"用户未登录"};
     self.E0006 = {repCode:"0006", description:"消息格式错误"};
+    self.E0007 = {repCode:"0007", description:"message参数未收到"};
 
     self.E1007 = {repCode:"1007", description:'账户余额不足'};
 

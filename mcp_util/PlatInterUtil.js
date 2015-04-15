@@ -43,6 +43,7 @@ PlatInterUtil.prototype.get = function(userId, userType, digestType, userKey, cm
         });
 
         res.on('end', function(){
+            log.info(data);
             cb(null, JSON.parse(data));
         });
     });

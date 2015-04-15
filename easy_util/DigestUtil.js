@@ -64,7 +64,7 @@ DigestUtil.prototype.generate = function(headNode, key, bodyStr)
         crypted += cipher.final('base64');
         return crypted;
     }
-    else if(headNode.digestType == "md5")
+    else if(headNode.digestType == "md5" || headNode.digestType == "MD5")
     {
         var text = bodyStr + headNode.timestamp + key;
         var md5 = self.md5(text);
