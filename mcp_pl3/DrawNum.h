@@ -18,10 +18,10 @@ class DrawNum {
         IntArray* getPNum();
         int getSum();
         int getSpan();
+        int getType();
     private:
         IntArray* prizeNum;
         int sum;
         int span;
-        int type; \\组六 \\组三
 };
 #endif
