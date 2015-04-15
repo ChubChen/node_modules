@@ -304,7 +304,7 @@ Validate.prototype.validate0201 = function(order, ticket, cb)
     }
     var count = mathUtil.getC(intArray.length, 2)*2;
     cb(null, count);
-}
+};
 
 
 /**

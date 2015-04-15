@@ -44,4 +44,4 @@ void init(Handle<Object> exports) {
     exports->Set(String::NewSymbol("stringUtil"), FunctionTemplate::New(StringUtil)->GetFunction());
 }
 
-NODE_MODULE(qxc, init)
+NODE_MODULE(sxc, init)

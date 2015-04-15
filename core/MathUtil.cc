@@ -110,22 +110,18 @@ void MathUtil::SelectSort(IntArray* intArray)
 
 
 int MathUtil::getSpan(IntArray* numArray, int len){
-    if(len == 2){
-        return MathUtil::abs(numArray->get(1) - numArray->get(0));
-    }else{
-        int span = 0 ;
-        int temp = MathUtil::abs(numArray->get(1) - numArray->get(0));
-        if(temp > span){
-            span = temp;
-        }
-        temp = MathUtil::abs(numArray->get(2) - numArray->get(1));
-        if(temp > span){
-            span = temp;
-        }
-        temp = MathUtil::abs(numArray->get(2) - numArray->get(0));
-        if(temp > span){
-            span = temp;
+    if(len >= 2){
+        int span = 0;
+        for(int i = 1 ; i < len ; i++){
+            for(int j = 0; j < i; j++){
+                int temp = MathUtil::abs(numArray->get(i) - numArray->get(j));
+                if(temp > span){
+                    span = temp;
+                }
+            }
         }
         return span;
+    }else{
+        return 0;
     }
 }

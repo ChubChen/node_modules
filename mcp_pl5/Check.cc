@@ -112,7 +112,7 @@ Handle<Value> Check::NewInstance(const Arguments& args)
 
 
 /**
- * 直选单式 排列三
+ * 单式 排列五
  */
 Handle<Value> Check::Count0000(const Arguments& args)
 {
@@ -153,7 +153,7 @@ Handle<Value> Check::Count0000(const Arguments& args)
 
 
 /**
- * 直选复式
+ * 复式
  */
 Handle<Value> Check::Count0001(const Arguments& args)
 {
