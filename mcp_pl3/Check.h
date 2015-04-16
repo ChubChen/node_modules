@@ -28,6 +28,14 @@ class Check:public node::ObjectWrap {
         static v8::Handle<v8::Value> Count0104(const v8::Arguments& args);
         static v8::Handle<v8::Value> Count0105(const v8::Arguments& args);
         static v8::Handle<v8::Value> Count0106(const v8::Arguments& args);
+        static v8::Handle<v8::Value> Count0201(const v8::Arguments& args);
+        static v8::Handle<v8::Value> Count0202(const v8::Arguments& args);
+        static v8::Handle<v8::Value> Count0206(const v8::Arguments& args);
+        static v8::Handle<v8::Value> Count0301(const v8::Arguments& args);
+        static v8::Handle<v8::Value> Count0302(const v8::Arguments& args);
+        static v8::Handle<v8::Value> Count0306(const v8::Arguments& args);
+        static v8::Handle<v8::Value> Count0400(const v8::Arguments& args);
+        static v8::Handle<v8::Value> Count0403(const v8::Arguments& args);
 
         GradeLevel* gl;
         DrawNum* pDrawNum;

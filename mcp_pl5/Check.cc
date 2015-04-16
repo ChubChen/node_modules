@@ -131,6 +131,7 @@ Handle<Value> Check::Count0000(const Arguments& args)
     for (int ch = 0 ; ch < length ; ch ++){
         char temp = pChar[ch];
         if(temp == ';' || ch == length -1){
+             if(ch == length -1 && temp != ';')
              len ++;
              IntArray  *itemNumber =new IntArray(5, temChar, len, '|');
              int hitCount = MathUtil::getHitCountByOrder(self->pDrawNum->getPNum(), itemNumber);

@@ -37,6 +37,14 @@ void Check::Init()
     tpl->PrototypeTemplate()->Set(String::NewSymbol("count0104"), FunctionTemplate::New(Count0104)->GetFunction());
     tpl->PrototypeTemplate()->Set(String::NewSymbol("count0105"), FunctionTemplate::New(Count0105)->GetFunction());
     tpl->PrototypeTemplate()->Set(String::NewSymbol("count0106"), FunctionTemplate::New(Count0106)->GetFunction());
+    tpl->PrototypeTemplate()->Set(String::NewSymbol("count0201"), FunctionTemplate::New(Count0201)->GetFunction());
+    tpl->PrototypeTemplate()->Set(String::NewSymbol("count0202"), FunctionTemplate::New(Count0202)->GetFunction());
+    tpl->PrototypeTemplate()->Set(String::NewSymbol("count0206"), FunctionTemplate::New(Count0206)->GetFunction());
+    tpl->PrototypeTemplate()->Set(String::NewSymbol("count0301"), FunctionTemplate::New(Count0301)->GetFunction());
+    tpl->PrototypeTemplate()->Set(String::NewSymbol("count0302"), FunctionTemplate::New(Count0302)->GetFunction());
+    tpl->PrototypeTemplate()->Set(String::NewSymbol("count0306"), FunctionTemplate::New(Count0306)->GetFunction());
+    tpl->PrototypeTemplate()->Set(String::NewSymbol("count0400"), FunctionTemplate::New(Count0400)->GetFunction());
+    tpl->PrototypeTemplate()->Set(String::NewSymbol("count0403"), FunctionTemplate::New(Count0403)->GetFunction());
 
     constructor = Persistent<Function>::New(tpl->GetFunction());
 }
@@ -134,6 +142,7 @@ Handle<Value> Check::Count0100(const Arguments& args)
     for (int ch = 0 ; ch < length ; ch ++){
         char temp = pChar[ch];
         if(temp == ';' || ch == length -1){
+             if(ch == length -1 && temp != ';')
              len ++;
              IntArray  *itemNumber =new IntArray(3, temChar, len, '|');
              int hitCount = MathUtil::getHitCountByOrder(self->pDrawNum->getPNum(), itemNumber);
@@ -226,6 +235,7 @@ Handle<Value> Check::Count0103(const Arguments& args)
     for (int ch = 0 ; ch < length ; ch ++){
         char temp = pChar[ch];
         if(temp == ';' || ch == length - 1){
+            if(ch == length -1 && temp != ';')
             len ++;
             IntArray *heNumber = new IntArray(27, temChar, len, ',');
             int sum = self->pDrawNum->getSum();
@@ -275,7 +285,8 @@ Handle<Value> Check::Count0104(const Arguments& args)
     for (int ch = 0 ; ch < length ; ch ++){
         char temp = pChar[ch];
         if(temp == ';' || ch == length - 1){
-            len ++;
+            if(ch == length -1 && temp != ';')
+             len ++;
             IntArray *heNumber = new IntArray(10, temChar, len, ',');
             IntArray *prizeNumber = self->pDrawNum->getPNum();
             int hitCount = MathUtil::getHitCount(heNumber, prizeNumber);
@@ -337,6 +348,7 @@ Handle<Value> Check::Count0105(const Arguments& args)
     for (int ch = tuoStart ; ch < length ; ch ++){
         char temp = pChar[ch];
         if(temp == ';' || ch == length - 1){
+            if(ch == length -1 && temp != ';')
             len ++;
             IntArray *tuoNumber = new IntArray(10, temChar, len, ',');
             //判断拖码是否中奖， 如果拖码中奖则中奖
@@ -378,7 +390,8 @@ Handle<Value> Check::Count0106(const Arguments& args)
     for (int ch = 0 ; ch < length ; ch ++){
         char temp = pChar[ch];
         if(temp == ';' || ch == length - 1){
-            len ++;
+             if(ch == length -1 && temp != ';')
+             len ++;
             IntArray *spanNumber = new IntArray(10, temChar, len, ',');
             int hitCount = 0;
             int span = self->pDrawNum->getSpan();
@@ -407,4 +420,369 @@ Handle<Value> Check::Count0106(const Arguments& args)
     return scope.Close(self->gl->getRst(array));
 }
 
+/**
+ * 组三复式
+ */
+Handle<Value> Check::Count0201(const Arguments& args)
+{
+    HandleScope scope;
+    Check *self = ObjectWrap::Unwrap<Check>(args.This());
+    Handle<Array> array = Array::New();
 
+    //获得号码的字符串
+    Local<Object> pObj = Local<Object>::Cast(args[0]);
+    Local<String> pNum = pObj->Get(String::NewSymbol("number"))->ToString();
+    int length = pNum->Utf8Length();
+    char *pChar = new char[length];
+    pNum->WriteUtf8(pChar);
+    int len = 0;
+    char *temChar = pChar;
+    for (int ch = 0 ; ch < length ; ch ++){
+        char temp = pChar[ch];
+        if(temp == ';' || ch == length -1){
+             if(ch == length -1 && temp != ';')
+             len ++;
+             if(self->pDrawNum->type == NUM_TYPE_Z3 ){
+                   IntArray *itemNumber =new IntArray(10, temChar, len, ',');
+                   int hitCount = MathUtil::getHitCount(itemNumber, self->pDrawNum->getPNum());
+                   if(hitCount >= 3 ){
+                       self->gl->appendBonusObj(array, 2, 1);
+                   }
+                   delete itemNumber;
+             }
+
+             len = 0;
+             if(ch < length - 1)
+             {
+                 temChar = pChar + ch + 1;
+             }
+        }else{
+               len ++;
+        }
+    }
+    delete[] pChar;
+    return scope.Close(self->gl->getRst(array));
+}
+/**
+ * 组三胆拖
+ */
+Handle<Value> Check::Count0202(const Arguments& args)
+{
+    HandleScope scope;
+    Check *self = ObjectWrap::Unwrap<Check>(args.This());
+    Handle<Array> array = Array::New();
+
+    //获得号码的字符串
+    Local<Object> pObj = Local<Object>::Cast(args[0]);
+    Local<String> pNum = pObj->Get(String::NewSymbol("number"))->ToString();
+    int length = pNum->Utf8Length();
+    char *pChar = new char[length];
+    pNum->WriteUtf8(pChar);
+
+    if(self->pDrawNum->type == NUM_TYPE_Z3){
+        int len = 0 ;
+        char *lotNumChar = pChar;
+        IntArray *danArray = 0;
+        for(int ch = 0; ch < length ; ch++ ){
+            char temp = pChar[ch];
+            if(temp == '$' ){
+                danArray =  new IntArray(2, lotNumChar, len, ',');
+                if(ch < length - 1){
+                   lotNumChar = pChar + ch + 1;
+                }
+                break;
+            }
+            len ++;
+        }
+
+        int hitCount = MathUtil::getHitCount(danArray, self->pDrawNum->getPNum());
+        if(hitCount > 0){
+            IntArray *tuoArray = new IntArray(10, lotNumChar, length - len -1, ',');
+            int hitTuoCount = MathUtil::getHitCount(tuoArray, self->pDrawNum->getPNum());
+            if(hitTuoCount > 0){
+                    self->gl->appendBonusObj(array, 2, 1);
+            }
+            delete tuoArray;
+        }
+         delete danArray;
+    }
+    delete[] pChar;
+    return scope.Close(self->gl->getRst(array));
+}
+
+/* 组三跨度*/
+Handle<Value> Check::Count0206(const Arguments& args)
+{
+    HandleScope scope;
+    Check *self = ObjectWrap::Unwrap<Check>(args.This());
+    Handle<Array> array = Array::New();
+
+    //获得号码的字符串
+    Local<Object> pObj = Local<Object>::Cast(args[0]);
+    Local<String> pNum = pObj->Get(String::NewSymbol("number"))->ToString();
+    int length = pNum->Utf8Length();
+    char *pChar = new char[length];
+    pNum->WriteUtf8(pChar);
+    int len = 0;
+    char *temChar = pChar;
+    for (int ch = 0 ; ch < length ; ch ++){
+        char temp = pChar[ch];
+        if(temp == ';' || ch == length - 1){
+            if(ch == length -1 && temp != ';')
+            len ++;
+            IntArray *spanNumber = new IntArray(10, temChar, len, ',');
+            int hitCount = 0;
+            int span = self->pDrawNum->getSpan();
+            if(self->pDrawNum->type == NUM_TYPE_Z3){
+                for(int i = 0 ; i < spanNumber->length(); i++){
+                    if(span == spanNumber->get(i)){
+                        hitCount ++;
+                        break;
+                    }
+                }
+                if(hitCount == 1){
+                    self->gl->appendBonusObj(array, 2, 1);
+                }
+            }
+            delete spanNumber;
+            len = 0;
+            if(ch < length - 1)
+            {
+                 temChar = pChar + ch + 1;
+            }
+        }else{
+               len ++;
+        }
+     }
+    delete[] pChar;
+    return scope.Close(self->gl->getRst(array));
+}
+
+
+/**
+ * 组六复式
+ */
+Handle<Value> Check::Count0301(const Arguments& args)
+{
+    HandleScope scope;
+    Check *self = ObjectWrap::Unwrap<Check>(args.This());
+    Handle<Array> array = Array::New();
+
+    //获得号码的字符串
+    Local<Object> pObj = Local<Object>::Cast(args[0]);
+    Local<String> pNum = pObj->Get(String::NewSymbol("number"))->ToString();
+    int length = pNum->Utf8Length();
+    char *pChar = new char[length];
+    pNum->WriteUtf8(pChar);
+    int len = 0;
+    char *temChar = pChar;
+    for (int ch = 0 ; ch < length ; ch ++){
+        char temp = pChar[ch];
+        if(temp == ';' || ch == length -1){
+              if(ch == length -1 && temp != ';')
+              len ++;
+             if(self->pDrawNum->type == NUM_TYPE_Z6 ){
+                 IntArray *itemNumber =new IntArray(10, temChar, len, ',');
+                 int hitCount = MathUtil::getHitCount(itemNumber, self->pDrawNum->getPNum());
+                 if(hitCount >= 3 ){
+                     self->gl->appendBonusObj(array, 3, 1);
+                 }
+                 delete itemNumber;
+             }
+             len = 0;
+             if(ch < length - 1)
+             {
+                 temChar = pChar + ch + 1;
+             }
+        }else{
+               len ++;
+        }
+    }
+    delete[] pChar;
+    return scope.Close(self->gl->getRst(array));
+}
+
+/**
+ * 组六胆拖
+ */
+Handle<Value> Check::Count0302(const Arguments& args)
+{
+    HandleScope scope;
+    Check *self = ObjectWrap::Unwrap<Check>(args.This());
+    Handle<Array> array = Array::New();
+
+    //获得号码的字符串
+    Local<Object> pObj = Local<Object>::Cast(args[0]);
+    Local<String> pNum = pObj->Get(String::NewSymbol("number"))->ToString();
+    int length = pNum->Utf8Length();
+    char *pChar = new char[length];
+    pNum->WriteUtf8(pChar);
+
+    if(self->pDrawNum->type == NUM_TYPE_Z6){
+        int len = 0 ;
+        char *lotNumChar = pChar;
+        IntArray *danArray = 0;
+        for(int ch = 0; ch < length ; ch++ ){
+            char temp = pChar[ch];
+            if(temp == '$' ){
+                danArray =  new IntArray(2, lotNumChar, len, ',');
+                if(ch < length - 1){
+                   lotNumChar = pChar + ch + 1;
+                }
+                break;
+            }
+            len ++;
+        }
+        int hitCount = MathUtil::getHitCount(danArray, self->pDrawNum->getPNum());
+        if(hitCount == danArray->length()){
+            IntArray *tuoArray = new IntArray(10, lotNumChar, length - len -1, ',');
+            int hitTuoCount = MathUtil::getHitCount(tuoArray, self->pDrawNum->getPNum());
+            if(hitTuoCount == 3 - hitCount){
+                 self->gl->appendBonusObj(array, 3, 1);
+            }
+            delete tuoArray;
+        }
+        delete danArray;
+    }
+    delete[] pChar;
+    return scope.Close(self->gl->getRst(array));
+}
+
+/* 组三跨度*/
+Handle<Value> Check::Count0306(const Arguments& args)
+{
+    HandleScope scope;
+    Check *self = ObjectWrap::Unwrap<Check>(args.This());
+    Handle<Array> array = Array::New();
+
+    //获得号码的字符串
+    Local<Object> pObj = Local<Object>::Cast(args[0]);
+    Local<String> pNum = pObj->Get(String::NewSymbol("number"))->ToString();
+    int length = pNum->Utf8Length();
+    char *pChar = new char[length];
+    pNum->WriteUtf8(pChar);
+    int len = 0;
+    char *temChar = pChar;
+    for (int ch = 0 ; ch < length ; ch ++){
+        char temp = pChar[ch];
+        if(temp == ';' || ch == length - 1){
+            if(ch == length -1 && temp != ';')
+            len ++;
+            IntArray *spanNumber = new IntArray(10, temChar, len, ',');
+            int hitCount = 0;
+            int span = self->pDrawNum->getSpan();
+            if(self->pDrawNum->type == NUM_TYPE_Z6){
+                for(int i = 0 ; i < spanNumber->length(); i++){
+                    if(span == spanNumber->get(i)){
+                        hitCount ++;
+                        break;
+                    }
+                }
+                if(hitCount >= 1){
+                    self->gl->appendBonusObj(array, 3, 1);
+                }
+            }
+            delete spanNumber;
+            len = 0;
+            if(ch < length - 1)
+            {
+                 temChar = pChar + ch + 1;
+            }
+        }else{
+               len ++;
+        }
+     }
+    delete[] pChar;
+    return scope.Close(self->gl->getRst(array));
+}
+
+
+/**
+ * 组选单式 排列三
+ */
+Handle<Value> Check::Count0400(const Arguments& args)
+{
+    HandleScope scope;
+    Check *self = ObjectWrap::Unwrap<Check>(args.This());
+    Handle<Array> array = Array::New();
+
+    //获得号码的字符串
+    Local<Object> pObj = Local<Object>::Cast(args[0]);
+    Local<String> pNum = pObj->Get(String::NewSymbol("number"))->ToString();
+    int length = pNum->Utf8Length();
+    char *pChar = new char[length];
+    pNum->WriteUtf8(pChar);
+    int len = 0;
+    char *temChar = pChar;
+    for (int ch = 0 ; ch < length ; ch ++){
+        char temp = pChar[ch];
+        if(temp == ';' || ch == length -1){
+             if(ch == length -1 && temp != ';')
+             len ++;
+             IntArray  *itemNumber =new IntArray(3, temChar, len, ',');
+             int hitCount = MathUtil::getHitCount(self->pDrawNum->getPNum(), itemNumber);
+             if(hitCount == 3){
+                if(self->pDrawNum->type == NUM_TYPE_Z3){
+                    self->gl->appendBonusObj(array, 2, 1);
+                }else if (self->pDrawNum->type == NUM_TYPE_Z6){
+                    self->gl->appendBonusObj(array, 3, 1);
+                }
+             }
+             delete itemNumber;
+             len = 0;
+             if(ch < length - 1)
+             {
+                 temChar = pChar + ch + 1;
+             }
+        }else{
+               len ++;
+        }
+    }
+    delete[] pChar;
+    return scope.Close(self->gl->getRst(array));
+}
+
+/***组选和值*/
+Handle<Value> Check::Count0403(const Arguments& args)
+{
+    HandleScope scope;
+    Check *self = ObjectWrap::Unwrap<Check>(args.This());
+    Handle<Array> array = Array::New();
+
+    //获得号码的字符串
+    Local<Object> pObj = Local<Object>::Cast(args[0]);
+    Local<String> pNum = pObj->Get(String::NewSymbol("number"))->ToString();
+    int length = pNum->Utf8Length();
+    char *pChar = new char[length];
+    pNum->WriteUtf8(pChar);
+    int len = 0;
+    char *temChar = pChar;
+    for (int ch = 0 ; ch < length ; ch ++){
+        char temp = pChar[ch];
+        if(temp == ';' || ch == length - 1){
+             if(ch == length -1 && temp != ';')
+             len ++;
+            IntArray *heNumber = new IntArray(27, temChar, len, ',');
+            int sum = self->pDrawNum->getSum();
+            for(int i = 0 ; i < heNumber->length(); i++){
+                if (heNumber->get(i) == sum){
+                    if(self->pDrawNum->type == NUM_TYPE_Z3){
+                        self->gl->appendBonusObj(array, 2, 1);
+                    }else if (self->pDrawNum->type == NUM_TYPE_Z6){
+                        self->gl->appendBonusObj(array, 3, 1);
+                    }
+                }
+            }
+            delete heNumber;
+            len = 0;
+            if(ch < length - 1)
+            {
+                 temChar = pChar + ch + 1;
+            }
+        }else{
+               len ++;
+        }
+     }
+    delete[] pChar;
+    return scope.Close(self->gl->getRst(array));
+}

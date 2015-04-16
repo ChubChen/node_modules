@@ -18,7 +18,8 @@ class DrawNum {
         IntArray* getPNum();
         int getSum();
         int getSpan();
-        int getType();
+        int type;
+
     private:
         IntArray* prizeNum;
         int sum;

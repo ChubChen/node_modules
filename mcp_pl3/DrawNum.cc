@@ -17,20 +17,19 @@ DrawNum::DrawNum(char *pNum, int len)
    this->sum = he;
    int span = MathUtil::getSpan(this->prizeNum, this->prizeNum->length());
    this->span = span;
-   this->getType();
+
+   if(this->prizeNum->get(0) == this->prizeNum->get(1) && this->prizeNum->get(1) == this->prizeNum->get(2))
+   {
+       this->type = NUM_TYPE_Z0;
+   }
+   if(this->prizeNum->get(0) != this->prizeNum->get(1) && this->prizeNum->get(1) != this->prizeNum->get(2) && this->prizeNum->get(0) != this->prizeNum->get(2))
+   {
+       this->type = NUM_TYPE_Z6;
+   }else{
+      this->type = NUM_TYPE_Z3;
+   }
 }
 
-int DrawNum::getType(){
-    if(this->prizeNum->get(0) == this->prizeNum->get(1) && this->prizeNum->get(1) == this->prizeNum->get(2))
-    {
-        return NUM_TYPE_Z0;
-    }
-    if(this->prizeNum->get(0) != this->prizeNum->get(1) && this->prizeNum->get(1) != this->prizeNum->get(2) && this->prizeNum->get(0) != this->prizeNum->get(2))
-    {
-        return NUM_TYPE_Z6;
-    }
-        return NUM_TYPE_Z3;
-}
 /*
 *获得开奖号码的数组
 */
