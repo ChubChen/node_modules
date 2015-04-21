@@ -33,7 +33,7 @@ DigestUtil.prototype.check = function(headNode, key, bodyStr)
     else if(headNode.digestType == "md5" || headNode.digestType == "MD5")
     {
         var text = bodyStr + headNode.timestamp + key;
-        log.info(text);
+        log.info("签名字符串" + text);
         var md5 = self.md5(text);
         log.info("client md5:" + md5);
         log.info("system md5:" + headNode.digest);

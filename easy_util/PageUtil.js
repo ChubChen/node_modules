@@ -53,56 +53,59 @@ PageUtil.prototype.parse = function(bodyNode, backBodyNode)
     }
 };
 
-PageUtil.prototype.parsePost = function(bodyNode, backBodyNode)
+PageUtil.prototype.parsePost = function(bodyNode)
 {
     var skip = bodyNode.skip;
     if(skip == undefined)
     {
-        backBodyNode.skip = 0;
+        bodyNode.skip = 0;
     }
     else
     {
-        backBodyNode.skip = skip;
+        bodyNode.skip = skip;
     }
     var limit = bodyNode.limit;
     if(limit == undefined)
     {
-        if(!backBodyNode.limit) {
-            backBodyNode.limit = 20;
+        if(!bodyNode.limit) {
+            bodyNode.limit = 30;
         }
     }
     else
     {
-        backBodyNode.limit = limit;
+        limit = parseInt(limit, 10);
+        if(limit > 30){
+            bodyNode.limit = 30;
+        }
     }
     var sort = bodyNode.sort;
     if(sort == undefined)
     {
-        if(!backBodyNode.sort) {
-            backBodyNode.sort = {id: 1};
+        if(!bodyNode.sort) {
+            bodyNode.sort = {id: 1};
         }
     }
     else
     {
-        backBodyNode.sort = sort;
+        bodyNode.sort = sort;
     }
     var cond = bodyNode.cond;
     if(cond == undefined)
     {
-        backBodyNode.cond = {};
+        bodyNode.cond = {};
     }
     else
     {
-        backBodyNode.cond = cond;
+        bodyNode.cond = cond;
     }
     var add = bodyNode.add;
     if(add == undefined)
     {
-        backBodyNode.add = {};
+        bodyNode.add = {};
     }
     else
     {
-        backBodyNode.add = add;
+        bodyNode.add = add;
     }
 }
 
