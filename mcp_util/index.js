@@ -9,4 +9,5 @@ exports.dateMathUtil = require('./DateMathUtil.js');
 exports.fsUtil = require('./FsUtil.js');
 exports.strBuffer = require('./Stringbuffer.js');
 exports.arrayInfo = require('./ArrayInfo.js');
+exports.xmlUtil = require('./Xml2js.js');
 module.exports = exports;

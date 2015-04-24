@@ -67,6 +67,7 @@ DigestUtil.prototype.generate = function(headNode, key, bodyStr)
     else if(headNode.digestType == "md5" || headNode.digestType == "MD5")
     {
         var text = bodyStr + headNode.timestamp + key;
+        log.info("加密字符串" + text );
         var md5 = self.md5(text);
         headNode.digest = md5;
         return bodyStr;

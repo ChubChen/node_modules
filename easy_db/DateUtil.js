@@ -65,7 +65,11 @@ DateUtil.prototype.objDateToString = function(table, obj)
                 }
                 else
                 {
-                    obj[col.name] = moment(obj[key]).format("YYYY-MM-DD HH:mm:ss");
+                    if(obj[key] == null){
+                        obj[col.name] = '';
+                    }else{
+                        obj[col.name] = moment(obj[key]).format("YYYY-MM-DD HH:mm:ss");
+                    }
                 }
             }
         }

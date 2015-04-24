@@ -2,7 +2,6 @@ var fs = require('fs');
 var path = require('path');
 
 var fsUtil = function(){
-
 }
 
 fsUtil.prototype.createDirSync = function (dirname, mode) {

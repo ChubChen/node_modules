@@ -19,7 +19,6 @@ var ErrCode = function()
     self.E2057 = {repCode:"2057", description:"处于不允许的状态"};
     self.E2058 = {repCode:'2058', description:'JSON格式转换出错'};
     self.E2059 = {repCode:'2059', description:'系统繁忙'};
-    self.E2060 = {repCode:"2060", description:"不支持的cmd"};
     self.E2061 = {repCode:"2061", description:"金额错误"};
     self.E2062 = {repCode:"2062", description:"不支持的玩法或者投注方式"};
     self.E2063 = {repCode:"2063", description:"不支持的游戏"};
@@ -35,7 +34,7 @@ var ErrCode = function()
 
 
     self.E0999 = {repCode:"0999", description:"系统内部错误"};
-    self.E9000 = {repCode:"9000", description:"不支持的数据库类型"};
+    self.E9000 = {repCode:"9000", description:"不支持的cmd"};
     self.E9002 = {repCode:"9002", description:'密钥来源错误'};
     self.E9003 = {repCode:"9003", description:'密钥错误'};
     self.E9004 = {repCode:"9004", description:'登录超时'};
