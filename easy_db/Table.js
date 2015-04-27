@@ -56,33 +56,33 @@ Table.prototype.getDdl = function()
     var self = this;
     var sql = "create table " + self.name + "(";
     var colList = self.colList;
-    var primaryList = "";
-    var i = 0 ;
+    var colArray = new Array();
+    var primaryList = new Array();
+    var constraintList = new Array();
     for(var key in colList)
     {
 
         var col = colList[key];
         if(col.isPrimary()){
-            if(primaryList.length > 0){
-                primaryList += "," + col.getName();
-            }else{
-                primaryList += col.getName();
-            }
+            primaryList.push(col.getName());
         }
-        if(i > 0 ){
-            sql += ", ";
+        if(col.getConstraint()){
+            constraintList.push(col.getName());
         }
-        sql += col.toString();
-        i++;
+        colArray.push(col.toString());
     }
-    if(primaryList != "") {
-        sql += ", ";
-        sql += "PRIMARY KEY (";
-        sql += primaryList;
-        sql += "));";
-    }else{
-        sql += ");";
+    sql += colArray.join(",");
+    if(primaryList.length > 0) {
+        sql += ", PRIMARY KEY (";
+        sql += primaryList.join(",");
+        sql += ")";
     }
+    if(constraintList.length >0){
+        sql += ", UNIQUE KEY (";
+        sql += constraintList.join(",");
+        sql += ")";
+    }
+    sql += ");";
     console.log(sql);
     return sql;
 };

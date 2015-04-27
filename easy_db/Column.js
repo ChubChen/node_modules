@@ -1,7 +1,7 @@
 var log = require('./McpLog.js');
 var prop = require('./Prop.js');
 
-var Column = function(db, name, type, length, nullable, default_value, primary, auto_increment){
+var Column = function(db, name, type, length, nullable, default_value, primary, auto_increment, uniqueConstraint){
     var self = this;
     self.db = db;
     self.name = name;
@@ -35,6 +35,11 @@ var Column = function(db, name, type, length, nullable, default_value, primary, 
     {
         self.auto_increment = auto_increment;
     }
+    if(uniqueConstraint == undefined){
+        self.constraint = false;
+    }else{
+        self.constraint = uniqueConstraint;
+    }
 };
 
 Column.prototype.getName = function()
@@ -65,6 +70,12 @@ Column.prototype.isPrimary = function()
 {
     var self = this;
     return self.primary;
+};
+
+Column.prototype.getConstraint = function()
+{
+    var self = this;
+    return self.constraint;
 };
 
 Column.prototype.isAuto_increment = function()
