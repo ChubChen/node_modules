@@ -14,7 +14,7 @@ var NotifyUtil = function(){};
 NotifyUtil.prototype.send = function(options, digestType, userKey, cmd, body, cb)
 {
     log.info(options);
-    body.uniqueId = digestUtil.createUUID();
+    //body.uniqueId = digestUtil.createUUID();
     var bodyStr = JSON.stringify(body);
     var head = {digest:"", digestType:digestType, cmd:cmd};
     head.timestamp = dateUtil.getCurTime();
@@ -28,6 +28,7 @@ NotifyUtil.prototype.send = function(options, digestType, userKey, cmd, body, cb
     var post_data  = querystring.stringify({
         message:msgToSend
     });
+    log.info("发送通知内容" + msgToSend);
     var headers = {
         'Content-Type': 'application/x-www-form-urlencoded',
         'Content-Length':post_data.length
