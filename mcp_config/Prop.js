@@ -46,7 +46,7 @@ var dbs = {
         type: esdb.prop.dbType.mongodb
     },
     'testMg': {
-        config: {'url': 'mongodb://218.30.107.20:27017/node_mcp'},
+        config: {'url': 'mongodb://192.168.0.20:27017/node_mcp'},
         type: esdb.prop.dbType.mongodb
     },
     'devMain': {
@@ -81,12 +81,12 @@ var dbs = {
         type: esdb.prop.dbType.mongodb
     },
     'testMsg': {
-        config: {'url': 'mongodb://218.30.107.20:27017/node_mcp_msg'},
+        config: {'url': 'mongodb://192.168.0.20:27017/node_mcp_msg'},
         type: esdb.prop.dbType.mongodb
     },
     'testMain': {
         config: {
-            'host': '218.30.107.20',
+            'host': '192.168.0.20',
             'user': 'root',
             'password': '0okmnhy6zqc',
             'port': 3306,
@@ -128,14 +128,14 @@ else if(target == 'test')
     exports.msg = dbs.testMsg;
 
     exports.platform.site = {
-        hostname: '218.30.107.19',
+        hostname: '192.168.0.19',
         port: 9088,
         path: '/mcp-filter/main/interface.htm',
         method: 'POST'
     };
 
     exports.ftp = {
-        host:"218.30.107.19",
+        host:"192.168.0.19",
         port:21,
         user:"chenpeng",
         password:"123456"
