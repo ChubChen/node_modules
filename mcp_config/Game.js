@@ -88,7 +88,7 @@ var Game = function () {
             ]
             }
         ]},
-        {id: 'T03', type: 1, name: '排列三', playTypes: [
+        {id: 'T03', type: 1, name: '排列3', playTypes: [
             {id: '01', name: '直选', price: 200, betTypes: [
                 {id: '00', name: "单式"},
                 {id: '01', name: "复式"},
@@ -116,7 +116,7 @@ var Game = function () {
             ]
             }
         ]},
-        {id: 'T04', type: 1, name: '排列5', betTypes: [
+        {id: 'T04', type: 1, name: '排列5', playTypes: [
             {id: '00', name: '标准', price: 200, betTypes: [
                 {id: '00', name: "单式"},
                 {id: '01', name: "复式"}
@@ -322,5 +322,5 @@ Game.prototype.getInfo = function (gameCode, playTypeCode, betTypeCode) {
     }
     return obj;
 };
-
+//console.log(new Game().getInfo('T04','00'))
 module.exports = new Game();
