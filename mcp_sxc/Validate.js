@@ -58,7 +58,7 @@ Validate.prototype.validate = function(order, ticket, cb)
 
 
 /**
- * 排列五 标准单式
+ * 七星彩 标准单式
  * @param order
  * @param ticket
  * @param cb
@@ -90,7 +90,7 @@ Validate.prototype.validate0000 = function(order, ticket, cb)
 
 
 /**
- * 排列三  标准复式
+ * 七星彩  标准复式
  * @param order
  * @param ticket
  * @param cb
@@ -113,7 +113,7 @@ Validate.prototype.validate0001 = function(order, ticket, cb)
             cb(ec.E2066);
             return;
         }
-        if(!mathUtil.isMinAndMaxBetween(intArray, 1, 9)){
+        if(!mathUtil.isMinAndMaxBetween(intArray, 0, 9)){
             cb(ec.E2066);
             return;
         }
