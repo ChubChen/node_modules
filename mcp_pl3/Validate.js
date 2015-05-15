@@ -533,12 +533,12 @@ Validate.prototype.validate0403 = function(order, ticket, cb)
         cb(ec.E2066);
         return;
     }
-    if(!mathUtil.isMinAndMaxBetween(intArray, self.ZUXUAN_HEZHI_MIN, self.ZUXUAN_HEZHI_MAX))
-    var count = 0;
+    if(!mathUtil.isMinAndMaxBetween(intArray, self.ZUXUAN_HEZHI_MIN, self.ZUXUAN_HEZHI_MAX));
+    var length = 0;
     for(var i = 0; i < intArray.length; i++){
-        count += self.ZUXUAN_HEZHI_COUNT[intArray[i]];
+        length += self.ZUXUAN_HEZHI_COUNT[parseInt(intArray[i],10)];
     }
-    cb(null, count);
+    cb(null, length);
 };
 
 
