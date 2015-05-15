@@ -521,7 +521,7 @@ Validate.prototype.validate0403 = function(order, ticket, cb)
 {
     var self = this;
     var number = ticket.number;
-    var reg = /^[0-9]{2}(,[0-9]{2}){1,9}$/;
+    var reg = /^[0-9]{2}(,[0-9]{2}){0,20}$/;
     if(!reg.test(number))
     {
         cb(ec.E2066);
