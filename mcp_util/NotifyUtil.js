@@ -45,7 +45,7 @@ NotifyUtil.prototype.send = function(options, digestType, userKey, cmd, body, cb
         res.on('end', function(){
             var backNode;
             try {
-                log.info(data);
+                log.info("返回信息" + data);
                 backNode = JSON.parse(data);
             }
             catch(err)

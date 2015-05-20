@@ -14,7 +14,7 @@ var ErrCode = function()
 
     self.E2003 = {repCode:'2003', description:'期次不存在'};
     self.E2005 = {repCode:'2005', description:'订单不存在'};
-    self.E2006 = {repCode:'2065', description:'票据id重复'};
+    self.E2006 = {repCode:'2006', description:'票据id重复'};
     self.E2008 = {repCode:'2008', description:'不是当前期'};
     self.E2035 = {repCode:"2035", description:"渠道不存在"};
     self.E2057 = {repCode:"2057", description:"处于不允许的状态"};
