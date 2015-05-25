@@ -8,7 +8,7 @@ var xmlUtil = function(){
 
 xmlUtil.prototype.jsonToXml = function(JsonObj){
     //将JSon对象转换为xml
-    var buildXml = new xml2js.Builder({'xmldec':{'encoding':"UTF8"}});
+    var buildXml = new xml2js.Builder({'xmldec':{'encoding':"UTF-8"}});
     var xml = buildXml.buildObject(JsonObj);
     return xml;
 }

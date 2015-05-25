@@ -1,4 +1,6 @@
 var dlt = require('./build/Release/dlt');
+var vlidate = require("./Validate.js");
+
 
 var gameGrades = [1, 1, 1, 20000, 1000, 500, 1, 1, 1, 10000, 500];
 var gl = dlt.gl(gameGrades.length);
@@ -16,5 +18,13 @@ check.setGl(gl);
     console.log(check.count0002({number:'09,14,17,18$21,22,23|01$03,04'}));
     console.log(check.count0502({number:'09,14,17,18$21,22,23|01$03,04'}));
 }*/
-console.log(check.count0000({number:'09,14,17,18,21|01,04;09,14,17,18,21|01,03;09,14,17,18,21|02,04;09,14,17,18,21|02,04;09,14,17,18,22|02,04'}));
+//console.log(check.count0000({number:'09,14,17,18,21|01,04;09,14,17,18,21|01,03;09,14,17,18,21|02,04;09,14,17,18,21|02,04;09,14,17,18,22|02,04'}));
 
+
+vlidate.validate0000(null, {number:'01,02,03,04,05|01,02'}, function(err, length){
+    if(err){
+        console.log(err);
+    }else{
+        console.log(length)
+    }
+});
