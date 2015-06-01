@@ -18,8 +18,8 @@ NotifyUtil.prototype.send = function(options, digestType, userKey, cmd, body, cb
     var bodyStr = JSON.stringify(body);
     var head = {digest:"", digestType:digestType, cmd:cmd};
     head.timestamp = dateUtil.getCurTime();
-    head.message = digestUtil.createUUID();
-    head.vsrsion= "1.0";
+    head.messageid = digestUtil.createUUID();
+    head.version = "1.0";
     var encodedBody = bodyStr;
     if(head.digestType.length > 0)
     {

@@ -50,7 +50,7 @@ var dbs = {
         type: esdb.prop.dbType.mongodb
     },
     'yunMg': {
-        config: {'url': 'mongodb://218.30.107.20:27017/node_mcp'},
+        config: {'url': 'mongodb://218.30.107.19:27017/node_mcp'},
         type: esdb.prop.dbType.mongodb
     },
     'devMain': {
@@ -89,7 +89,7 @@ var dbs = {
         type: esdb.prop.dbType.mongodb
     },
     'yunMsg': {
-        config: {'url': 'mongodb://218.30.107.20:27017/node_mcp_msg'},
+        config: {'url': 'mongodb://218.30.107.19:27017/node_mcp_msg'},
         type: esdb.prop.dbType.mongodb
     },
     'testMain': {
@@ -106,9 +106,9 @@ var dbs = {
     },
     'yunMain': {
         config: {
-            'host': '218.30.107.20',
+            'host': '218.30.107.19',
             'user': 'root',
-            'password': '0okmnhy6zqc',
+            'password': 'zqc0okmnhy6',
             'port': 3306,
             'database': 'node_mcp'
         },
