@@ -133,7 +133,7 @@ if(target == 'dev')
         {host:'127.0.0.1',port:9090,method:'POST'}
     ];
     exports.ftp = {
-        host:"218.30.107.19",
+        host:"127.0.0.1",
         port:21,
         user:"chenpeng",
         password:"123456"
