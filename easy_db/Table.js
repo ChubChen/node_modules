@@ -627,9 +627,13 @@ Table.prototype.find = function(data, columns, options)
             {
                 keyStr += ",";
             }
-            if(columns[key] == 1)
+            if(columns[key])
             {
-                keyStr += key;
+                if(columns[key] == 1){
+                    keyStr += key;
+                }else{
+                    keyStr += key + 'as ' + columns[key];
+                }
             }
             i++;
         }
