@@ -632,7 +632,7 @@ Table.prototype.find = function(data, columns, options)
                 if(columns[key] == 1){
                     keyStr += key;
                 }else{
-                    keyStr += key + 'as ' + columns[key];
+                    keyStr += key + '  as ' + columns[key];
                 }
             }
             i++;
