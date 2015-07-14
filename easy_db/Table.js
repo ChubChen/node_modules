@@ -154,6 +154,16 @@ Table.prototype.findOne = function(condition, fields, options, cb, addition)
     else
     {
         var cursor = self.find(condition, fields, options);
+        if(addition && addition.sort){
+            cursor.sort(addition.sort);
+        }
+        if(addition && addition.skip){
+            cursor.skip(addition.skip);
+        }
+        if(addition && addition.limit){
+            cursor.limit(addition.limit);
+        }
+
         if(addition!= undefined && addition.dateToString)
         {
             cursor.dateToString();
