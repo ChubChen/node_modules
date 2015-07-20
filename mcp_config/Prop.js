@@ -133,7 +133,7 @@ if(target == 'dev')
         {host:'127.0.0.1',port:9090,method:'POST'}
     ];
     exports.ftp = {
-        host:"127.0.0.1",
+        host:"218.30.107.19",
         port:21,
         user:"chenpeng",
         password:"123456"
@@ -217,6 +217,8 @@ exports.digestFromTypeArray = [
 
 //if user hasn't operation in half a hour, the key will be expired.
 exports.loginExpiredSeconds = 30*60;
+
+exports.jcrunumber = true;
 
 module.exports = exports;
 
