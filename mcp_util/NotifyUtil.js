@@ -8,6 +8,7 @@ var esut = require('easy_util');
 var digestUtil = esut.digestUtil;
 var dateUtil = esut.dateUtil;
 var log = esut.log;
+var Iconv = require('iconv-lite');
 
 var NotifyUtil = function(){};
 
@@ -47,11 +48,12 @@ NotifyUtil.prototype.send = function(options, digestType, userKey, cmd, body, cb
         res.on('end', function(){
             var backNode;
             try {
-                log.info("返回信息" + data);
-                backNode = JSON.parse(data);
+                //log.info("返回信息" + data);
+                log.info("返回信息" + Iconv.decode(data, 'gb2312').toString());
             }
             catch(err)
             {
+                log.error(err);
                 backNode = {};
             }
             if(!backCalled)
