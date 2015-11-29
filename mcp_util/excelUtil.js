@@ -1,7 +1,6 @@
 /**
  * Created by chenpeng on 2015/11/28.
  */
-var extend = require("extend");
 var fs = require("fs");
 var digestUtil = require("easy_util").digestUtil;
 var excelExport = require('excel-export');
