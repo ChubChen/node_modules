@@ -10,4 +10,5 @@ exports.fsUtil = require('./FsUtil.js');
 exports.strBuffer = require('./Stringbuffer.js');
 exports.arrayInfo = require('./ArrayInfo.js');
 exports.xmlUtil = require('./Xml2js.js');
+exports.excelUtil = require('./excelUtil.js');
 module.exports = exports;
