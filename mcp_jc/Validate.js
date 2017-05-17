@@ -77,6 +77,14 @@ Validate.prototype.validate0000 = function(order, ticket, cb)
         cb(ec.E2066);
         return;
     }
+    var numberArray = ticket.number.split(";");
+    for(var key in numberArray){
+        var pType = numberArray[key].split("|")[0];
+        if(pType != ticket.pType){
+            cb(ec.E2066);
+            return;
+        }
+    }
     var betType = ticket.bType;
     var m = betType.substr(0,1);
     var n = betType.substr(1);
